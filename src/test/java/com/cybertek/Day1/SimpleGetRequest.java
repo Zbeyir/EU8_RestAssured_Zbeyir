@@ -9,7 +9,7 @@ public class SimpleGetRequest {
     String url = "http://44.202.63.224:8000/api/spartans";
 
     @Test
-    public void test1(){
+    public void test1() {
 
         //send a get request and save response inside the Response object
         Response response = RestAssured.get(url);
