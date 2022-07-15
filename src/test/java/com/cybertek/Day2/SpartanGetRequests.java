@@ -71,11 +71,22 @@ public class SpartanGetRequests {
         Assertions.assertEquals("application/json", response.contentType());
 
         //verify json body contains Fidole
-        Assertions.assertTrue(response.asString().contains("Fidole"));
+        Assertions.assertTrue(response.body().asString().contains("Fidole"));
         //bu yönteme gercek hayat ta kullanmiyoruz simdilik kullaniyoruz,
         // cünkü "Fidole" bellki gender da yaziyor name de degil
 
      }
+
+
+     /*
+     Given no headers provided
+        When Users sends GET request to /api/hello
+        Then response status code should be 200
+        And Content type header should be “text/plain;charset=UTF-8”
+        And header should contain date
+        And Content-Length should be 17
+        And body should be “Hello from Sparta"
+      */
 
 
 
