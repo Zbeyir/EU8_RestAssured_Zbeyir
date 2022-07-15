@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 
 public class SimpleGetRequest {
 
+
+    //String url = "http://YOUR IP ADRES:8000/api/spartans";
+
     String url = "http://44.202.63.224:8000/api/spartans";
 
     @Test
