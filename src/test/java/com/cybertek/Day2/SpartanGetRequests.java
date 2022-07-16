@@ -88,8 +88,37 @@ public class SpartanGetRequests {
         And body should be “Hello from Sparta"
       */
 
+    @DisplayName("GET request to /api/hello")
+    @Test
+    public void test3(){
+
+        //send request and save response inside the response object
+        Response response = RestAssured.when().get(baseUrl + "/api/hello");
+
+        //verify status code 200
+        Assertions.assertEquals(200,response.statusCode());
+
+        //verify content type
+        Assertions.assertEquals("text/plain;charset=UTF-8",response.contentType());
+
+        //verify we have headers named date
+        //we use hasHeaderWithname method to verify header exist or not - it returns boolean
+        Assertions.assertTrue(response.headers().hasHeaderWithName("Date"));
+
+        //how to get and header from response using header key ?
+        //we use response.header(String headerName) method to get any header value
+
+        System.out.println("response.header(\"Content-Length\") = " + response.header("Content-Length"));
+        System.out.println("response.header(\"Date\") = " + response.header("Date"));
+
+        //verify content is 17
+        Assertions.assertEquals("17",response.header("Content-Length"));
+        // burada mesela "17" "tirnak isareti cinde yazdik" cünkü .header ' in return type 'i string
+
+        //verify body is “Hello from Sparta"
+        Assertions.assertEquals("Hello from Sparta",response.body().asString());
 
 
-
+    }
 
 }
