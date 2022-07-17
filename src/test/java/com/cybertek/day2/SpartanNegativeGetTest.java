@@ -1,24 +1,28 @@
-package com.cybertek.Day2;
+package com.cybertek.day2;
+
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static io.restassured.RestAssured.baseURI;
+import static io.restassured.RestAssured.baseURI;     // bunlari direkt copy paste yaptik
 
-import static io.restassured.RestAssured.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static io.restassured.RestAssured.*;         // bunlari direkt copy paste yaptik
+import static org.junit.jupiter.api.Assertions.*;  // bunlari direkt copy paste yaptik
 
-public class SpartanNegativeGetTestC {
+public class SpartanNegativeGetTest {
 
     @BeforeAll
-    public static void init(){
+    public static void init() {
+
         //save baseurl inside this variable so that we dont need to type each http method.
-        baseURI = "http://44.202.119.26:8000";
+        baseURI = "http://44.202.63.224:8000";
     }
 
-    /*TASK
+
+      /*
+      TASK
     Given Accept type application/xml
     When user send GET request to /api/spartans/10 end point
     Then status code must be 406
@@ -28,14 +32,17 @@ public class SpartanNegativeGetTestC {
     @DisplayName("GET request to /api/spartans/10")
     @Test
     public void test1(){
-        Response response = given()
-                .accept(ContentType.XML)
-                .when()
-                .get("/api/spartans");
+
+        Response response = given().accept(ContentType.XML).when().get("/api/spartans/10");
+
 
         //verify status code is 406
-        assertEquals(406,response.statusCode());
+        assertEquals(406, response.statusCode());
+
         //verify content type
-        assertEquals("application/xml;charset=UTF-8",response.contentType());
+        assertEquals("application/xml;charset=UTF-8", response.contentType());
+
     }
+
+
 }
