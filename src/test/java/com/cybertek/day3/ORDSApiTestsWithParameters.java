@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static io.restassured.RestAssured.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -72,7 +74,19 @@ public class ORDSApiTestsWithParameters {
 
         assertTrue(response.body().asString().contains("IT_PROG"));
 
-        response.prettyPrint();
+       // response.prettyPrint();
+
+
+        //==========aslinda bura day4 de yaptik
+
+        //make sure we have only IT_PROG as job_id
+        List<String> allJobID = response.path("items.job_id");
+
+        for (String jobID : allJobID) {
+
+            System.out.println("jobID = " + jobID);
+            assertEquals("IT_PROG",jobID);
+        }
 
 
     }
