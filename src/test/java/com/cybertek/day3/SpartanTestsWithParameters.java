@@ -82,11 +82,68 @@ public class SpartanTestsWithParameters {
 
             //verify Not Found in the json payload/body
             assertTrue(response.body().asString().contains("Not Found"));
-
-
-
-
     }
+
+
+    /*
+     Given accept type is Json
+        And query parameter values are:
+        gender|Female
+        nameContains|e
+        When user sends GET request to /api/spartans/search
+        Then response status code should be 200
+        And response content-type: application/json
+        And "Female" should be in response payload
+        And "Janette" should be in response payload
+     */
+
+    @DisplayName("GET request to /api/spartans/search with Query Params")
+    @Test
+    public void test3() {
+
+        Response response = given()
+                .accept(ContentType.JSON)
+                .and().queryParam("nameContains","e") //bu test tin bir üstekinden farki buralar
+                .and().queryParam("gender","Female")  //bu test tin bir üstekinden farki buralar
+                .when()
+                .get("/api/spartans/search");
+
+        //verify status code is 200
+        assertEquals(200, response.statusCode());
+
+        //verify content type
+        assertEquals("application/json", response.contentType());
+
+        //  And "Female" should be in response payload
+        assertTrue(response.body().asString().contains("Female"));
+        //   And "Janette" should be in response payload
+        assertTrue(response.body().asString().contains("Janette"));
+    }
+
+    @DisplayName("GET request to /api/spartans/search with Query Params")
+    @Test
+    public void test4() {
+
+        Response response = given()
+                .accept(ContentType.JSON).log().all() // bunun da tek farki-->log().all()-->bu bize icerigini görmemizi sagliyor zorunlu degil
+                .and().queryParam("nameContains","e")
+                .and().queryParam("gender","Female")
+                .when()
+                .get("/api/spartans/search");
+
+        //verify status code is 200
+        assertEquals(200, response.statusCode());
+
+        //verify content type
+        assertEquals("application/json", response.contentType());
+
+        //  And "Female" should be in response payload
+        assertTrue(response.body().asString().contains("Female"));
+        //   And "Janette" should be in response payload
+        assertTrue(response.body().asString().contains("Janette"));
+    }
+
+
 
 
 }
