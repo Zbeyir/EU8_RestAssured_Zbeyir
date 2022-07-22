@@ -159,7 +159,7 @@ public class SpartanTestsWithParameters {
         Response response = given()
                 .log().all()
                 .accept(ContentType.JSON)
-                .and().queryParams(queryMap)
+                .and().queryParams(queryMap)  // tabii dogal olark birde farki burasi
                 .when()
                 .get("/api/spartans/search");
 
