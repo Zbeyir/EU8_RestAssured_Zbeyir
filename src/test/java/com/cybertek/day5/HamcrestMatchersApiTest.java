@@ -84,9 +84,24 @@ mesela -->assertThat()-->'de  Syntactic sugar olsa da olur olmasa da
         ve altta konsolda olmasi gerekeni yazacak
          */
 
+    }
+
+    @DisplayName("GET request to teacher/all and chaining")
+    @Test
+    public void teachersTest(){
 
 
+        //verify Andrii,Anreas,Breana inside the all teachers
 
+        given()
+                .accept(ContentType.JSON)
+                .when()
+                .get("http://api.cybertektraining.com/teacher/all")
+                .then()
+                .statusCode(200)
+                .and()
+                .body("teachers.firstName",hasItems("Andrii","Anreas","Breana"));
+        //ayni sekilde teacher ismi olmayan birini yazincada hata vereck ve olanlari yazdiracak konsol da
 
     }
 
