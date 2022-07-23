@@ -2,6 +2,8 @@ package com.cybertek.day5;
 
 import com.cybertek.utilities.HRTestBase;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -42,6 +44,58 @@ public class ORDSHamcrestTest extends HRTestBase {
                 .body("items.email",containsInAnyOrder("VPATABAL","DAUSTIN","BERNST","AHUNOLD","DLORENTZ")) //contains without order-->ama burad siralam önemli degil
                 .body("items.first_name",equalTo(names));
 
+    }
+
+
+
+    @Test
+    public void  employeesTest2(){
+
+        //we want to chain and also get response object
+
+        /*
+        Response response = given()
+                .accept(ContentType.JSON)
+                .and().queryParam("q", "{\"job_id\": \"IT_PROG\"}")
+                .when()
+                .get("/employees")
+                .then()
+                .statusCode(200)
+                .body("items.job_id", everyItem(equalTo("IT_PROG")))
+                .extract().response();
+
+                response.prettyPrint();
+         */
+
+        //extract() --> method that allow us to get response object after we use then() method.
+
+        /*
+        .jsonPath()
+        .statusCode()
+        ---yani-- extract() --> 'dan sonra bircok seyi kullanabiliriz
+         */
+
+
+        JsonPath jsonPath = given()
+                .accept(ContentType.JSON)
+                .and().queryParam("q", "{\"job_id\": \"IT_PROG\"}")
+                .when()
+                .get("/employees")
+                .then()
+                .statusCode(200)
+                .body("items.job_id", everyItem(equalTo("IT_PROG")))
+                .extract().jsonPath();
+
+        //assert that we have only 5 firstnames
+        assertThat(jsonPath.getList("items.first_name"),hasSize(5));
+
+        //assert firstnames order
+        assertThat(jsonPath.getList("items.first_name"),containsInRelativeOrder("Alexander","Bruce","David","Valli","Diana"));
+
+
+
+
 
     }
+
 }
