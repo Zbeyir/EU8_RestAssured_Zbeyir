@@ -50,8 +50,45 @@ mesela -->assertThat()-->'de  Syntactic sugar olsa da olur olmasa da
                 ,"gender",equalTo("Female")
                 ,"phone",is(1938695106));
 
+    }
+
+
+
+
+
+    @DisplayName("CBTraining Teacher request with chaining and matchers")
+    @Test
+    public void teacherData(){
+
+        given()
+                .accept(ContentType.JSON)
+                .and()
+                .pathParam("id",21887)
+        .when()
+                .get("http://api.cybertektraining.com/teacher/{id}")
+        .then()
+                .statusCode(200)
+                .and()
+                .contentType("application/json;charset=UTF-8")
+                .and()
+                .header("Content-Length",is("275"))
+                .and()
+                .header("Date",notNullValue())
+                .and().assertThat()
+                .body("teachers[0].firstName",is("Leonel"))
+                .body("teachers[0].lastName",is("Messi"))
+                .body("teachers[0].gender",equalTo("Male"));
+
+        /*
+        mesela -->"Date"---> yerine "Dateee" gibi yanlis biersey  yazdin mi sana hata vereck
+        ve altta konsolda olmasi gerekeni yazacak
+         */
+
+
 
 
 
     }
+
+
 }
